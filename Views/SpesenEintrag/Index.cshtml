@@ -1,0 +1,80 @@
+@model List<SpesenApp.Models.SpesenEintrag>
+
+@{
+    ViewData["Title"] = "Spesen von " + ((SpesenApp.Models.Person)ViewBag.Person)?.Vorname + " " + ((SpesenApp.Models.Person)ViewBag.Person)?.Nachname;
+    var person = (SpesenApp.Models.Person)ViewBag.Person;
+}
+
+<a asp-controller="Personen" asp-action="Index">
+    <span class="material-icons back-icon">arrow_back</span>
+</a>
+
+<h2>Spesen von @person.Vorname @person.Nachname</h2>
+
+<div class="spesen-list">
+    <div class="header">
+        <div>Index</div>
+        <div>Datum</div>
+        <div>Beschreibung</div>
+        <div>KST 1</div>
+        <div>KST 2</div>
+        <div>Total</div>
+        <div>Aktionen</div>
+    </div>
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var eintrag = Model[i];
+        <div class="spesen-row">
+            <div>@(i + 1)</div>
+            <div>@eintrag.Datum.ToString("D", new System.Globalization.CultureInfo("de-CH"))</div>
+            <div>@eintrag.Beschreibung</div>
+            <div>@eintrag.Kst1</div>
+            <div>@(eintrag.Kst2.ToString() ?? "-")</div>
+            <div>@eintrag.Total.ToString("C", new System.Globalization.CultureInfo("de-CH"))</div>
+            <div class="actions">
+                <form asp-action="Delete" asp-route-id="@eintrag.Id" method="post" onsubmit="return confirm('Willst du diese Spese wirklich löschen?');">
+                    <button type="submit" class="btn btn-danger btn-sm" title="Löschen">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </form>
+
+                <a asp-action="Edit" asp-route-id="@eintrag.Id" class="btn btn-sm btn-warning" title="Bearbeiten">
+                    <span class="material-icons">edit</span>
+                </a>
+            </div>  
+        </div>  
+    }
+</div>
+
+<a asp-controller="SpesenEintrag" asp-action="Create" asp-route-personId="@person.Id" class="btn btn-primary mt-3">
+    Neue Spese erfassen
+</a>
+
+ <div class="kosten-summary">
+            <div class="label header">Total Gesamt</div>
+            <div class="label header">Verpflegung</div>
+            <div class="label header">Reisekosten</div>
+            <div class="label header">Auto (km)</div>
+            <div class="label header">Kursmaterial</div>
+            <div class="label header">Andere Kosten</div>
+
+            <div class="value total-gesamt">
+                @ViewBag.TotalGesamt.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+            <div class="value">
+                @ViewBag.TotalVerpflegung.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+            <div class="value">
+                @ViewBag.TotalReisekosten.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+            <div class="value">
+                @ViewBag.TotalReisespesenAuto.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+            <div class="value">
+                @ViewBag.TotalKursmaterial.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+            <div class="value">
+                @ViewBag.TotalAndereKosten.ToString("C", new System.Globalization.CultureInfo("de-CH"))
+            </div>
+        </div>

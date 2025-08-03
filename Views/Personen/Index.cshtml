@@ -1,0 +1,43 @@
+<h2>Personenliste</h2>
+
+<div class="person-list">
+    <div class="header">
+        <div>Index</div>
+        <div>Vorname</div>
+        <div>Nachname</div>
+        <div>E-Mail</div>
+        <div>Aktionen</div>
+    </div>
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        var person = Model[i];
+        <div class="person-row">
+            <div>@(i + 1)</div>
+            <div>@person.Vorname</div>
+            <div>@person.Nachname</div>
+            <div>@person.Email</div>
+            <div class="actions">
+                <a asp-controller="SpesenEintrag" asp-action="Create" asp-route-personId="@person.Id" class="btn btn-primary btn-sm" title="Spesen erfassen">
+                    <span class="material-icons">add_circle</span>
+                </a>
+                <a asp-controller="SpesenEintrag" asp-action="Index" asp-route-personId="@person.Id" class="btn btn-secondary btn-sm" title="Spesen anzeigen">
+                    <span class="material-icons">list</span>
+                </a>            
+                <a asp-action="Edit" asp-route-id="@person.Id" class="btn btn-warning btn-sm" title="Bearbeiten">
+                    <span class="material-icons">edit</span>
+                </a>
+                <form asp-action="Delete" asp-route-id="@person.Id" method="post" class="d-inline" onsubmit="return confirm('Willst du diese Person wirklich löschen?');" title="Löschen">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <span class="material-icons">delete</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+
+<a asp-action="Create" class="btn btn-success mb-3">
+    <span class="material-icons">person_add</span>  Neue Person erfassen
+</a>
+

@@ -1,0 +1,82 @@
+.person-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+}
+
+.header, .person-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr 3fr 3fr 3fr;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    align-items: center;
+}
+
+.header {
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+}
+
+.person-row {
+    border-bottom: 1px solid #eee;
+}
+
+.actions a, .actions form {
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+.actions form {
+    margin: 0;
+}
+
+.material-icons {
+    vertical-align: middle;
+}
+
+@media (max-width: 767px) {
+    .header {
+        display: none;
+    }
+
+    .actions {
+    display: flex;
+    gap: 0.25rem; 
+    flex-wrap: wrap;
+}
+
+    .person-row {
+        grid-template-columns: 1fr;
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+    }
+
+    .person-row > div {
+        padding: 0.25rem 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    .person-row > div:nth-child(1)::before {
+        content: "Index";
+        font-weight: bold;
+    }
+    .person-row > div:nth-child(2)::before {
+        content: "Vorname";
+        font-weight: bold;
+    }
+    .person-row > div:nth-child(3)::before {
+        content: "Nachname";
+        font-weight: bold;
+    }
+    .person-row > div:nth-child(4)::before {
+        content: "E-Mail";
+        font-weight: bold;
+    }
+    .person-row > div:nth-child(5)::before {
+        content: "Aktionen";
+        font-weight: bold;
+    }
+}
