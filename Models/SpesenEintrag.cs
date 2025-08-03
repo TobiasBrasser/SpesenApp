@@ -13,7 +13,9 @@ namespace SpesenApp.Models
         public string? Beschreibung { get; set; }
 
         [Required]
-        public int Kst1 { get; set; } 
+        [Range(1, int.MaxValue, ErrorMessage = "Kst1 muss gesetzt sein.")]
+        public int Kst1 { get; set; }
+
 
         public int Kst2 { get; set; }
 
@@ -35,7 +37,6 @@ namespace SpesenApp.Models
         [Range(0, double.MaxValue)]
         public decimal AndereKosten { get; set; }
 
-        // Berechnetes Feld (nicht mapped)
         [NotMapped]
         public decimal Total => Verpflegung + Reisekosten + ReisespesenAuto + Kursmaterial + AndereKosten;
 
